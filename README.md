@@ -1,1 +1,1 @@
-# epam-training-git
+# Script for automation mysqldump process.

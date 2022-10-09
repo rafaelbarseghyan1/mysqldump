@@ -1,10 +1,10 @@
 
-### Database backup script documentation
+## Database backup script documentation
 
 Bash script to backup MySQL database with compressed version.The script allows you to compress files in 4 ways (gzip,bzip2,xz,lzma).Find out which type of compression suits you best and use that option.
 Script would also free up storage space by removing backups older then 30 days.
 
-#####To start compressing and backup the database you must specify a few information shown below after running script`
+##### To start compressing and backup the database you must specify a few information shown below after running script`
 
 + MYSQL_HOST - (Example - localhost) 
 + MYSQL_USER (Example - james) 

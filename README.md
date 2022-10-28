@@ -11,7 +11,7 @@ You can also remove old files and objects from the specified bucket (older than 
 + MYSQL_USER (Example - "james" ) 
 + MYSQL_PASSWORD (Example - "mysqlpass" ) 
 + DB_BACKUP_PATH - database backup folder where you want to save compressed files (Example - "/home/james/databasebackups/" )
-+ DATABASE_NAME - the name of the database you want to compress (Example database name - "Users" )
++ DATABASE_NAME - the name of the database you want to backup (Example database name - "Users" )
 + COMPRESSION_TYPE - (Example - "gzip" )
 
 ### To synchronize data between backup folder in local server and AWS S3 you must specify a few information shown below ` 
@@ -20,7 +20,7 @@ You can also remove old files and objects from the specified bucket (older than 
 + AWS_USERNAME - (Example - "admin999" )
 + AWS Access Key ID
 + AWS Secret Access Key  
-+ AWS Region 
++ AWS Region - (Example - "eu-central-1")
 + BACKUP_DELDATE_FROM_AWS - (Example - "7" )
 
 > Keep in mind that you must have the necessary acceses in

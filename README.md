@@ -14,6 +14,8 @@ You can also remove old files and objects from the specified bucket (older than 
 + DATABASE_NAME - the name of the database you want to compress (Example database name - "Users" )
 + COMPRESSION_TYPE - (Example - "gzip" )
 
+### To synchronize data between backup folder in local server and AWS S3 you must specify a few information shown below ` 
+
 + AWS_S3_BUCKET_NAME - (Example - "database.backups.aws.s3" )
 + AWS_USERNAME - (Example - "admin999" )
 + AWS Access Key ID

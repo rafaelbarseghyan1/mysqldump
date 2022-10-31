@@ -67,18 +67,20 @@ fi
 ####################     CHOICE OF METHOD COMPRESSION     #######################
 #################################################################################
 
-read -p "Enter your preferred compression type. Possible options ( gzip | bzip2 | xz | lzma ):  " COMPRESSION_TYPE
+while true
+do
+  read -p "Enter your preferred compression type. Possible options ( gzip | bzip2 | xz | lzma ):  " COMPRESSION_TYPE
+      case $COMPRESSION_TYPE in
+            gzip|bzip2|xz|lzma)
+                  break
+                  ;;
+            *)
+            printf "${Red}There is an error when entering compression type.Try again please${NC}\n"
+                  ;;
+      esac
+done
 
-if [ $COMPRESSION_TYPE == "gzip" ] || [ $COMPRESSION_TYPE == "bzip2" ] 
-then
 printf "${Green}Backup started for database${NC}\n"
-elif [ $COMPRESSION_TYPE == "xz" ] || [ $COMPRESSION_TYPE == "lzma" ] 
-then 
-printf "${Green}Backup started for database${NC}\n"
-else
-echo "${Red}There is an error when entering compression type{NC}\n"
-exit 1
-fi
 
 
 #################################################################################
@@ -114,7 +116,7 @@ rm -rf ${DB_BACKUP_PATH}/${DBDELDATE}
 
 while true
 do
-      read -r -p "Do you want to store your database backup in an AWS s3 bucket? [Y/n] " input
+      read -r -p "Do you want to synchronize your database backup in an AWS s3 bucket? [Y/n] " input
 
       case $input in
             [yY][eE][sS]|[yY])
@@ -144,7 +146,7 @@ aws s3 sync ${DB_BACKUP_PATH} s3://${BUCKET_NAME}
 
 
 if [ $? -eq 0 ]; then
-printf "${Green}Database backup successfully synch with AWS S3${NC}\n"
+printf "${Green}Database backup folder successfully synchronized with AWS S3${NC}\n"
 else
 printf "${Red}Error found during synch backup in AWS S3${NC}\n"
 exit 1
@@ -154,8 +156,35 @@ fi
 ################     DELETING OLD OBJECTS FROM AWS S3     ######################
 ################################################################################
 
-echo "How many days of old age files to delete from AWS S3?"
-read OBJECT_DEL
+while true
+do
+      read -r -p "Do you want remove older backup files and objects from an AWS s3 bucket? [Y/n] " input
+
+      case $input in
+            [yY][eE][sS]|[yY])
+            #      echo "Yes"
+                  break
+                  ;;
+            [nN][oO]|[nN])
+                  echo "Bye :)"
+                  exit 1
+                  break
+                  ;;
+            *)
+                  echo "Invalid input..."
+                  ;;
+      esac
+done
+
+
+read -p "How many days of old age files to delete from AWS S3?: " OBJECT_DEL
+
+if ! [[ "$OBJECT_DEL" =~ ^[0-9]+$ ]]
+    then
+       printf "\n${Red}Invalid input... You should have just entered integers${NC}\n"
+       exit 1
+fi
+
 
 aws s3 ls ${BUCKET_NAME} --recursive | while read -r line;  do
 
@@ -176,3 +205,5 @@ done;
 ################################################################################
 ########################     END OF SCRIPT     #################################
 ################################################################################
+
+printf "\n${Green}The script is finished with success. Good luck :)${NC}\n"

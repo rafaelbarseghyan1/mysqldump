@@ -177,13 +177,17 @@ do
 done
 
 
-read -p "How many days of old age files to delete from AWS S3?: " OBJECT_DEL
-
-if ! [[ "$OBJECT_DEL" =~ ^[0-9]+$ ]]
+while read -p "How many days of old age files to delete from AWS S3?: " OBJECT_DEL; do
+    if [[ "$OBJECT_DEL" =~ ^[0-9]+$ ]]
     then
-       printf "\n${Red}Invalid input... You should have just entered integers${NC}\n"
-       exit 1
-fi
+    echo "deldatedone" > /dev/null
+    break
+    else
+    printf "\n${Red}Invalid input... You should have just entered integers${NC}\n"
+    ((c++)) && ((c==3)) && printf "\n${Red}Invalid input more than 3 times. The deletion process has been cancelled${NC}\n" && exit 1
+    fi
+done
+
 
 
 aws s3 ls ${BUCKET_NAME} --recursive | while read -r line;  do

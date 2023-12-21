@@ -1,5 +1,5 @@
 
-## Database backup script documentation
+# Database backup script documentation 
 
 Bash script is to backup MySQL database with compressed version.The script allows you to compress files in 4 ways (gzip,bzip2,xz,lzma).Find out which type of compression suits you best and use that option.Script would also free up storage space by removing backups older then 30 days.
 Based on your choice our script allows to synchronize your database backup folder from local server to AWS S3 bucket .
